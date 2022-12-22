@@ -1,0 +1,58 @@
+<div>
+  <button class="create-btn" nz-button nzType="primary" (click)="toggleCreateModal()">Create</button>
+  <app-filters (searchEvent)="search($event)"></app-filters>
+</div>
+
+<nz-table
+  #basicTable
+  [nzData]="list$ | async"
+  [nzWidthConfig]="['120px', '120px', '120px', '80px', '200px']"
+  [nzLoading]="loading$ | async"
+>
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Done</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.label }}</td>
+      <td>{{ data.description }}</td>
+      <td>{{ data.category }}</td>
+      <td>
+        <label class="list-checkbox" nz-checkbox [nzChecked]="data.done"></label>
+      </td>
+      <td>
+        <button nz-button nzType="primary" (click)="openEditModal(data.id)" class="action-btn">Edit</button>
+        <button nz-button nzType="primary" [nzDanger]="true" (click)="delete(data.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-modal
+  *ngIf="isOpenCreateModal"
+  [nzVisible]="true"
+  nzTitle="Create"
+  (nzOnCancel)="toggleCreateModal()"
+  [nzFooter]="null"
+>
+  <app-to-do-form (submitEvent)="create($event)" *nzModalContent></app-to-do-form>
+</nz-modal>
+
+<nz-modal *ngIf="isOpenEditModal" nzTitle="Edit" [nzVisible]="true" [nzFooter]="null" (nzOnCancel)="closeEditModal()">
+  <ng-container *nzModalContent>
+    <app-to-do-form
+      *ngIf="item$ | async as item; else loader"
+      [toDo]="item"
+      (submitEvent)="edit($event, item.id)"
+    ></app-to-do-form>
+    <ng-template #loader>
+      <nz-spin></nz-spin>
+    </ng-template>
+  </ng-container>
+</nz-modal>

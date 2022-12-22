@@ -1,0 +1,46 @@
+<form nz-form [formGroup]="form" class="filters-wrapper" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7">Label</nz-form-label>
+    <nz-form-control nzErrorTip="Required">
+      <nz-input-group>
+        <input nz-input formControlName="label" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7">Description</nz-form-label>
+    <nz-form-control>
+      <nz-input-group>
+        <input nz-input formControlName="description" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7">Category</nz-form-label>
+    <nz-form-control>
+      <nz-input-group>
+        <input nz-input formControlName="category" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row>
+    <nz-form-control [nzSpan]="14" [nzOffset]="7">
+      <label nz-checkbox formControlName="done">Done</label>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row>
+    <nz-form-control [nzSpan]="14" [nzOffset]="7">
+      <button nz-button nzType="primary">Search</button>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row>
+    <nz-form-control [nzSpan]="14" [nzOffset]="7">
+      <button nz-button nzType="default" (click)="reset()">Reset</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
